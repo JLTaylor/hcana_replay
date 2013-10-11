@@ -6,7 +6,8 @@ void compare_hodo(Int_t RunNumber=52949, Int_t FirstToReplay=1, Int_t MaxEventTo
   //
   
   //Int_t RunNumber=52949;
-    char* RunFileNamePattern="/cache/mss/hallc/daq04/raw/daq04_%d.log.0";
+  //  char* RunFileNamePattern="/cache/mss/hallc/daq04/raw/daq04_%d.log.0";
+    char* RunFileNamePattern="./daq04_%d.log.0";
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
   gHcParms->AddString("g_ctp_database_filename", "DBASE/test.database");
   
@@ -60,6 +61,8 @@ void compare_hodo(Int_t RunNumber=52949, Int_t FirstToReplay=1, Int_t MaxEventTo
   sprintf(RunFileName,RunFileNamePattern,RunNumber);
   THaRun* run = new THaRun(RunFileName);
 
+  cout << "Run = " << RunFileName << endl;
+
   // Eventually need to learn to skip over, or properly analyze
   // the pedestal events
   run->SetEventRange(FirstToReplay,MaxEventToReplay);//  Physics Event number, does not
@@ -75,5 +78,6 @@ void compare_hodo(Int_t RunNumber=52949, Int_t FirstToReplay=1, Int_t MaxEventTo
   // File to record cuts accounting information
   //  analyzer->SetSummaryFile("summary_example.log"); // optional
   
+  cout << "About to start processing the data now ..." << endl;
   analyzer->Process(run);     // start the actual analysis
 }
